@@ -14,19 +14,19 @@ public interface FlightManager {
     public Airplane addAirplane(String model, String airline);
     public Airplane addAirplane(String id, String model, String airline);
 
-    public Flight addFligh(Flight f);
-    public Flight addFligh(String origin, String destination, String arrival_time, String departure_time, String id_airplane);
-    public Flight addFligh(String id, String origin, String destination, String arrival_time, String departure_time, String id_airplane);
+    public Flight addFlight(Flight f);
+    public Flight addFlight(String origin, String destination, String arrival_time, String departure_time, String id_airplane);
+    public Flight addFlight(String id, String origin, String destination, String arrival_time, String departure_time, String id_airplane);
 
 
+    public User addUser();
     public Bag addBag();
     public void checkinBag();
     public void provideBag();
 
-    public User addUser();
-
     public void clear();
     public int sizeAirplane();
     public int sizeFlight();
+    public int sizeUser();
 
 }

@@ -4,6 +4,8 @@ import edu.upc.dsa.util.RandomUtils;
 
 public class Bag {
     String id;
+    String id_user;
+    Boolean checkin;
 
     // Constructor vacio
     public Bag() {
@@ -11,11 +13,17 @@ public class Bag {
     }
     // Constructor
     // Constructor
+    public Bag(String id_user, Boolean checkin) {
+        this(null, id_user, checkin);
+    }
+    // Constructor
 
     // Constructor
-    public Bag(String id) {
+    public Bag(String id, String id_user, Boolean checkin) {
         this(); // Llama al constructor sin parámetros (asigna un id aleatorio).
         if (id != null) this.setId(id); // Si se proporciona un id, lo sobrescribe.
+        this.setId_user(id_user);
+        this.setCheckin(checkin);
     }
     // Constructor
 
@@ -25,6 +33,18 @@ public class Bag {
     }
     public void setId(String id) {
         this.id=id;
+    }
+    public String getId_user(){
+        return this.id_user;
+    }
+    public void setId_user(String id_user){
+        this.id_user=id_user;
+    }
+    public Boolean getCheckin(){
+        return  this.checkin;
+    }
+    public void setCheckin(Boolean checkin){
+        this.checkin=checkin;
     }
 
 

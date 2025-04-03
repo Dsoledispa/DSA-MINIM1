@@ -14,12 +14,14 @@ public class FlightManagerImpl implements FlightManager {
     private static FlightManager instance; // singleton
     protected List<Airplane> airplanes;
     protected List<Flight> flights;
+    protected List<User> users;
     final static Logger logger = Logger.getLogger(FlightManagerImpl.class); // Log4j
 
     // Constructor privado
     private FlightManagerImpl() {
         this.airplanes = new LinkedList<>();
         this.flights = new LinkedList<>();
+        this.users = new LinkedList<>();
     }
     // Constructor privado
 
@@ -51,7 +53,7 @@ public class FlightManagerImpl implements FlightManager {
     }
 
     @Override
-    public Flight addFligh(Flight f) {
+    public Flight addFlight(Flight f) {
         logger.info("new Flight " + f);
 
         this.flights.add(f);
@@ -60,13 +62,18 @@ public class FlightManagerImpl implements FlightManager {
     }
 
     @Override
-    public Flight addFligh(String origin, String destination, String arrival_time, String departure_time, String id_airplane) {
-        return this.addFligh(null, origin, destination, arrival_time, departure_time, id_airplane);
+    public Flight addFlight(String origin, String destination, String arrival_time, String departure_time, String id_airplane) {
+        return this.addFlight(null, origin, destination, arrival_time, departure_time, id_airplane);
     }
 
     @Override
-    public Flight addFligh(String id, String origin, String destination, String arrival_time, String departure_time, String id_airplane) {
-        return this.addFligh(new Flight(id, origin, destination, arrival_time, departure_time, id_airplane));
+    public Flight addFlight(String id, String origin, String destination, String arrival_time, String departure_time, String id_airplane) {
+        return this.addFlight(new Flight(id, origin, destination, arrival_time, departure_time, id_airplane));
+    }
+
+    @Override
+    public User addUser() {
+        return null;
     }
 
     @Override
@@ -85,14 +92,10 @@ public class FlightManagerImpl implements FlightManager {
     }
 
     @Override
-    public User addUser() {
-        return null;
-    }
-
-    @Override
     public void clear() {
         this.airplanes.clear();
         this.flights.clear();
+        this.users.clear();
     }
 
     @Override
@@ -109,5 +112,13 @@ public class FlightManagerImpl implements FlightManager {
         logger.info("size " + vuelos);
 
         return  vuelos;
+    }
+
+    @Override
+    public int sizeUser() {
+        int usuarios = this.users.size();
+        logger.info("size " + usuarios);
+
+        return usuarios;
     }
 }
