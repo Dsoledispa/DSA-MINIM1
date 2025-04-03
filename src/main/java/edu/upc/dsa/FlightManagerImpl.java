@@ -6,13 +6,22 @@ import edu.upc.dsa.models.Flight;
 import edu.upc.dsa.models.User;
 import org.apache.log4j.Logger;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class FlightManagerImpl implements FlightManager {
 
     private static FlightManager instance; // singleton
     protected List<Airplane> airplanes;
+    protected List<Flight> flights;
     final static Logger logger = Logger.getLogger(FlightManagerImpl.class); // Log4j
+
+    // Constructor privado
+    private FlightManagerImpl() {
+        this.airplanes = new LinkedList<>();
+        this.flights = new LinkedList<>();
+    }
+    // Constructor privado
 
     // Patron singleton
     public static FlightManager getInstance() {
@@ -21,17 +30,11 @@ public class FlightManagerImpl implements FlightManager {
     }
     // Patron singleton
 
-
-    @Override
-    public Flight addFligh() {
-        return null;
-    }
-
     @Override
     public Airplane addAirplane(Airplane a) {
         logger.info("new Airplane " + a);
 
-        this.airplanes.add (a);
+        this.airplanes.add(a);
         logger.info("new Airplane added");
         return a;
     }
@@ -46,6 +49,26 @@ public class FlightManagerImpl implements FlightManager {
         return this.addAirplane(new Airplane(id, model, airline));
 
     }
+
+    @Override
+    public Flight addFligh(Flight f) {
+        logger.info("new Flight " + f);
+
+        this.flights.add(f);
+        logger.info("new Flight added");
+        return f;
+    }
+
+    @Override
+    public Flight addFligh(String origin, String destination, String arrival_time, String departure_time, String id_airplane) {
+        return this.addFligh(null, origin, destination, arrival_time, departure_time, id_airplane);
+    }
+
+    @Override
+    public Flight addFligh(String id, String origin, String destination, String arrival_time, String departure_time, String id_airplane) {
+        return this.addFligh(new Flight(id, origin, destination, arrival_time, departure_time, id_airplane));
+    }
+
     @Override
     public Bag addBag() {
         return null;
@@ -68,11 +91,23 @@ public class FlightManagerImpl implements FlightManager {
 
     @Override
     public void clear() {
-
+        this.airplanes.clear();
+        this.flights.clear();
     }
 
     @Override
-    public int size() {
-        return 0;
+    public int sizeAirplane() {
+        int aviones = this.airplanes.size();
+        logger.info("size " + aviones);
+
+        return aviones;
+    }
+
+    @Override
+    public int sizeFlight() {
+        int vuelos = this.flights.size();
+        logger.info("size " + vuelos);
+
+        return  vuelos;
     }
 }

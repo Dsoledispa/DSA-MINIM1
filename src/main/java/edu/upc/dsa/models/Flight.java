@@ -10,25 +10,28 @@ public class Flight {
     String arrival_time;
     String departure_time;
 
+    String id_airplane;
+
     // Constructor vacio
     public Flight() {
         this.setId(RandomUtils.getId());
     }
     // Constructor
     // Constructor
-    public Flight(String origin, String destination, String arrival_time, String departure_time) {
-        this(null, origin, destination, arrival_time, departure_time);
+    public Flight(String origin, String destination, String arrival_time, String departure_time, String id_airplane) {
+        this(null, origin, destination, arrival_time, departure_time, id_airplane);
     }
     // Constructor
 
     // Constructor
-    public Flight(String id, String origin, String destination, String arrival_time, String departure_time) {
+    public Flight(String id, String origin, String destination, String arrival_time, String departure_time, String id_airplane) {
         this(); // Llama al constructor sin parámetros (asigna un id aleatorio).
         if (id != null) this.setId(id); // Si se proporciona un id, lo sobrescribe.
         this.setOrigin(origin);
         this.setDestination(destination);
         this.setArrival_time(arrival_time);
         this.setDeparture_time(departure_time);
+        this.setId_airplane(id_airplane);
     }
     // Constructor
 
@@ -63,12 +66,18 @@ public class Flight {
     public void setDeparture_time(String departure_time) {
         this.departure_time = departure_time;
     }
+    public String getId_airplane() {
+        return id_airplane;
+    }
+    public void setId_airplane(String id_airplane) {
+        this.id_airplane = id_airplane;
+    }
 
 
     // getters y setters
 
     @Override
     public String toString() {
-        return "Flight [id="+id+", origin=" + origin + ", destination=" + destination +", arrival_time=" + arrival_time+", departure_time=" + departure_time + "]";
+        return "Flight [id="+id+", origin=" + origin + ", destination=" + destination +", arrival_time=" + arrival_time+", departure_time=" + departure_time + ", id_airplane="+id_airplane+"]";
     }
 }

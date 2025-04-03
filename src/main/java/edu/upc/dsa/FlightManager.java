@@ -8,11 +8,16 @@ import edu.upc.dsa.models.User;
 public interface FlightManager {
 
 
-    public Flight addFligh();
+
 
     public Airplane addAirplane(Airplane a);
     public Airplane addAirplane(String model, String airline);
     public Airplane addAirplane(String id, String model, String airline);
+
+    public Flight addFligh(Flight f);
+    public Flight addFligh(String origin, String destination, String arrival_time, String departure_time, String id_airplane);
+    public Flight addFligh(String id, String origin, String destination, String arrival_time, String departure_time, String id_airplane);
+
 
     public Bag addBag();
     public void checkinBag();
@@ -21,6 +26,7 @@ public interface FlightManager {
     public User addUser();
 
     public void clear();
-    public int size();
+    public int sizeAirplane();
+    public int sizeFlight();
 
 }
