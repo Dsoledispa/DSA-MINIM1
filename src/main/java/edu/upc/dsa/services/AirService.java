@@ -2,7 +2,7 @@ package edu.upc.dsa.services;
 
 import edu.upc.dsa.FlightManager;
 import edu.upc.dsa.FlightManagerImpl;
-import edu.upc.dsa.models.Flight;
+import edu.upc.dsa.models.Airplane;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -16,14 +16,14 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 
-@Api(value = "/flights", description = "Endpoint to Track Service")
-@Path("/flights")
-public class FlightService {
+@Api(value = "/airplanes", description = "Endpoint to Track Service")
+@Path("/airplanes")
+public class AirService {
 
-    final static Logger logger = Logger.getLogger(FlightService.class); // Log4j
+    final static Logger logger = Logger.getLogger(AirService.class); // Log4j
     private FlightManager fm; // fm es una instancia del TracksManager (implementado como Singleton).
 
-    public FlightService() {
+    public AirService() {
         this.fm = FlightManagerImpl.getInstance();
         logger.info(this.fm);
         if (fm.sizeAirplane()==0) {
@@ -41,19 +41,19 @@ public class FlightService {
     }
 
     @POST
-    @ApiOperation(value = "create a new Flight", notes = "asdasd")
+    @ApiOperation(value = "create a new Airplane", notes = "asdasd")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful", response= Flight.class),
+            @ApiResponse(code = 201, message = "Successful", response= Airplane.class),
             @ApiResponse(code = 500, message = "Validation Error")
 
     })
 
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response newTrack(Flight flight) {
+    public Response newTrack(Airplane Airplane) {
 
-        if (flight.getOrigin()==null || flight.getDestination()==null || flight.getArrival_time()==null || flight.getDeparture_time()==null)  return Response.status(500).entity(flight).build();
-        this.fm.addFlight(flight);
-        return Response.status(201).entity(flight).build();
+        if (Airplane.getModel()==null || Airplane.getAirline()==null)  return Response.status(500).entity(Airplane).build();
+        this.fm.addAirplane(Airplane);
+        return Response.status(201).entity(Airplane).build();
     }
 }
