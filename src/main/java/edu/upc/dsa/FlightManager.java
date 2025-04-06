@@ -19,12 +19,15 @@ public interface FlightManager {
     public Flight addFlight(Flight f) throws AirplaneNotFoundException;
     public Flight addFlight(String origin, String destination, String arrival_time, String departure_time, String id_airplane) throws AirplaneNotFoundException;
     public Flight addFlight(String id, String origin, String destination, String arrival_time, String departure_time, String id_airplane) throws AirplaneNotFoundException;
+    public Flight getFlight(String id);
 
 
-    public Bag addBag();
+    public Bag addBag(Bag b) throws FlightNotFoundException;
+    public Bag addBag(String id_user, String id_flight) throws FlightNotFoundException;
+    public Bag addBag(String id, String id_user, String id_flight) throws FlightNotFoundException;
 
     public void clear();
     public int sizeAirplane();
     public int sizeFlight();
-
+    public int sizeBag(Flight f);
 }

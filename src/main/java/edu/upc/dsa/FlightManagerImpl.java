@@ -88,10 +88,41 @@ public class FlightManagerImpl implements FlightManager {
         return this.addFlight(new Flight(id, origin, destination, arrival_time, departure_time, id_airplane));
     }
 
+    @Override
+    public Flight getFlight(String id) {
+        logger.info("getFlight("+ id +")");
+        for (Flight f: this.flights) {
+            if (f.getId().equals(id)) {
+                logger.info("getFlight("+ id +"): "+f);
+                return f;
+            }
+        }
+
+        logger.warn("not found " + id);
+        return null;
+    }
 
     @Override
-    public Bag addBag() {
-        return null;
+    public Bag addBag(Bag b) throws FlightNotFoundException{
+        logger.info("new Bag " + b);
+        if (getFlight(b.getId_flight()) == null){
+            logger.error("Bag with id= "+b.getId_flight()+" not found");
+            throw new FlightNotFoundException();
+        }
+        getFlight(b.getId_flight()).getBags().add(b);
+        logger.info("new Bag added");
+        logger.info("Flight with bags "+getFlight(b.getId_flight()));
+        return b;
+    }
+
+    @Override
+    public Bag addBag(String id_user, String id_flight) throws FlightNotFoundException{
+        return this.addBag(null, id_user, id_flight);
+    }
+
+    @Override
+    public Bag addBag(String id, String id_user, String id_flight) throws FlightNotFoundException{
+        return this.addBag(new Bag(id, id_user, id_flight));
     }
 
 
@@ -104,7 +135,7 @@ public class FlightManagerImpl implements FlightManager {
     @Override
     public int sizeAirplane() {
         int aviones = this.airplanes.size();
-        logger.info("size " + aviones);
+        logger.info("size airplanes " + aviones);
 
         return aviones;
     }
@@ -112,9 +143,16 @@ public class FlightManagerImpl implements FlightManager {
     @Override
     public int sizeFlight() {
         int vuelos = this.flights.size();
-        logger.info("size " + vuelos);
+        logger.info("size flights " + vuelos);
 
         return  vuelos;
+    }
+
+    @Override
+    public int sizeBag(Flight f) {
+        int maletas = f.getBags().size();
+        logger.info("size bags " + maletas);
+        return maletas;
     }
 
 }

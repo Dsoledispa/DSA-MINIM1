@@ -18,7 +18,9 @@ public class Flight {
 
     // Constructor vacio
     public Flight() {
+
         this.setId(RandomUtils.getId());
+        this.bags = new LinkedList<>();
     }
     // Constructor
     // Constructor
@@ -37,6 +39,7 @@ public class Flight {
         this.setDeparture_time(departure_time);
         this.setId_airplane(id_airplane);
         this.bags = new LinkedList<>();
+        //this.setBags(bags);
     }
     // Constructor
 
@@ -77,12 +80,14 @@ public class Flight {
     public void setId_airplane(String id_airplane) {
         this.id_airplane = id_airplane;
     }
+    public List<Bag> getBags() {return bags;}
+    public void setBags(List<Bag> bags) {this.bags = bags;}
 
 
     // getters y setters
 
     @Override
     public String toString() {
-        return "Flight [id="+id+", origin=" + origin + ", destination=" + destination +", arrival_time=" + arrival_time+", departure_time=" + departure_time + ", id_airplane="+id_airplane+"]";
+        return "Flight [id="+id+", origin=" + origin + ", destination=" + destination +", arrival_time=" + arrival_time+", departure_time=" + departure_time + ", id_airplane="+id_airplane+", bags="+bags+"]";
     }
 }

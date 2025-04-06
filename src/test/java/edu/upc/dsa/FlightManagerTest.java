@@ -1,6 +1,7 @@
 package edu.upc.dsa;
 
 import edu.upc.dsa.exceptions.AirplaneNotFoundException;
+import edu.upc.dsa.exceptions.FlightNotFoundException;
 import edu.upc.dsa.services.FlightService;
 import org.apache.log4j.Logger;
 import org.junit.After;
@@ -23,8 +24,15 @@ public class FlightManagerTest {
         this.fm.addFlight("F2","Barcelona", "Valencia", "14:00", "15:00", "A2");
         this.fm.addFlight("F3","Madrid", "Barcelona", "16:00", "17:00", "A3");
 
+        this.fm.addBag("B1", "46499729P", "F1");
+        this.fm.addBag("B2", "46499729P", "F1");
+        this.fm.addBag("B3", "46499729P", "F1");
+
         Assert.assertThrows(AirplaneNotFoundException.class, () ->
-                this.fm.addFlight("F3","Madrid", "Barcelona", "16:00", "17:00", "XXXXXX"));
+                this.fm.addFlight("F4","Madrid", "Barcelona", "16:00", "17:00", "XXXXXX"));
+
+        Assert.assertThrows(FlightNotFoundException.class, () ->
+                this.fm.addBag("B4", "46499729P", "YYYYYY"));
     }
 
     @After
@@ -52,7 +60,20 @@ public class FlightManagerTest {
         Assert.assertEquals(4, fm.sizeFlight());
 
         Assert.assertThrows(AirplaneNotFoundException.class, () ->
-                this.fm.addFlight("F3","Madrid", "Barcelona", "16:00", "17:00", "XXXXXX"));
+                this.fm.addFlight("F5","Madrid", "Barcelona", "16:00", "17:00", "XXXXXX"));
 
     }
+
+    @Test
+    public void addBagTestFlightF1() throws Exception {
+        Assert.assertEquals(3, fm.sizeBag(this.fm.getFlight("F1")));
+
+        this.fm.addBag("B4", "46499729P", "F1");
+
+        Assert.assertEquals(4, fm.sizeBag(this.fm.getFlight("F1")));
+
+        Assert.assertThrows(FlightNotFoundException.class, () ->
+                this.fm.addBag("B5", "46499729P", "YYYYYY"));
+    }
+
 }

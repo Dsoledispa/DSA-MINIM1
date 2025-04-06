@@ -22,7 +22,7 @@ import java.util.List;
 public class FlightService {
 
     final static Logger logger = Logger.getLogger(FlightService.class); // Log4j
-    private FlightManager fm; // fm es una instancia del TracksManager (implementado como Singleton).
+    private FlightManager fm; // fm es una instancia del FlightManager (implementado como Singleton).
 
     public FlightService() throws Exception {
         this.fm = FlightManagerImpl.getInstance();
@@ -36,6 +36,11 @@ public class FlightService {
             this.fm.addFlight("F1","Barcelona", "Madrid", "13:00", "14:00", "A1");
             this.fm.addFlight("F2","Barcelona", "Valencia", "14:00", "15:00", "A2");
             this.fm.addFlight("F3","Madrid", "Barcelona", "16:00", "17:00", "A3");
+        }
+        if (fm.sizeBag(this.fm.getFlight("F1"))==0){
+            this.fm.addBag("B1", "46499729P", "F1");
+            this.fm.addBag("B2", "46499729P", "F1");
+            this.fm.addBag("B3", "46499729P", "F1");
         }
 
 
