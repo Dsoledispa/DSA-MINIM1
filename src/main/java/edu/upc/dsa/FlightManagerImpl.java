@@ -3,7 +3,6 @@ package edu.upc.dsa;
 import edu.upc.dsa.models.Airplane;
 import edu.upc.dsa.models.Bag;
 import edu.upc.dsa.models.Flight;
-import edu.upc.dsa.models.User;
 import org.apache.log4j.Logger;
 
 import java.util.LinkedList;
@@ -14,14 +13,12 @@ public class FlightManagerImpl implements FlightManager {
     private static FlightManager instance; // singleton
     protected List<Airplane> airplanes;
     protected List<Flight> flights;
-    protected List<User> users;
     final static Logger logger = Logger.getLogger(FlightManagerImpl.class); // Log4j
 
     // Constructor privado
     private FlightManagerImpl() {
         this.airplanes = new LinkedList<>();
         this.flights = new LinkedList<>();
-        this.users = new LinkedList<>();
     }
     // Constructor privado
 
@@ -72,11 +69,6 @@ public class FlightManagerImpl implements FlightManager {
     }
 
     @Override
-    public User addUser() {
-        return null;
-    }
-
-    @Override
     public Bag addBag() {
         return null;
     }
@@ -95,7 +87,6 @@ public class FlightManagerImpl implements FlightManager {
     public void clear() {
         this.airplanes.clear();
         this.flights.clear();
-        this.users.clear();
     }
 
     @Override
@@ -114,11 +105,4 @@ public class FlightManagerImpl implements FlightManager {
         return  vuelos;
     }
 
-    @Override
-    public int sizeUser() {
-        int usuarios = this.users.size();
-        logger.info("size " + usuarios);
-
-        return usuarios;
-    }
 }

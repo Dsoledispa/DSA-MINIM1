@@ -1,10 +1,5 @@
 package edu.upc.dsa;
 
-import edu.upc.dsa.models.Airplane;
-import edu.upc.dsa.models.Bag;
-import edu.upc.dsa.models.Flight;
-import edu.upc.dsa.models.User;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
