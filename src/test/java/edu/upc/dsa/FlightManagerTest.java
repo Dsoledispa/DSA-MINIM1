@@ -76,4 +76,12 @@ public class FlightManagerTest {
                 this.fm.addBag("B5", "46499729P", "YYYYYY"));
     }
 
+    @Test
+    public void checkBagTest() throws Exception {
+        this.fm.checkBag("F1");
+
+        Assert.assertThrows(FlightNotFoundException.class, () ->
+                this.fm.checkBag("zzzzzz"));
+    }
+
 }

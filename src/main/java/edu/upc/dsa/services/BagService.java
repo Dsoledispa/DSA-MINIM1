@@ -13,17 +13,16 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.apache.log4j.Logger;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Api(value = "/bags", description = "Endpoint to bags Service")
 @Path("/bags")
 public class BagService {
 
-    final static Logger logger = Logger.getLogger(FlightService.class); // Log4j
+    final static Logger logger = Logger.getLogger(BagService.class); // Log4j
     private FlightManager fm; // fm es una instancia del FlightManager (implementado como Singleton).
 
     public BagService() throws Exception {
@@ -51,7 +50,7 @@ public class BagService {
     @POST
     @ApiOperation(value = "create a new Bag", notes = "asdasd")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful", response= Flight.class),
+            @ApiResponse(code = 201, message = "Successful", response= Bag.class),
             @ApiResponse(code = 500, message = "Validation Error")
 
     })
@@ -63,6 +62,22 @@ public class BagService {
         if (b.getId_user()==null || b.getId_flight()==null)  return Response.status(500).entity(b).build();
         this.fm.addBag(b) ;
         return Response.status(201).entity(b).build();
+    }
+
+    //
+
+    @GET
+    @ApiOperation(value = "get a list of bags", notes = "asdasd")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response = Bag.class),
+            @ApiResponse(code = 404, message = "Bag list not found")
+    })
+    @Path("/{id_flight}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTrack(@PathParam("id_flight") String id_flight) throws FlightNotFoundException {
+        List<Bag> b = this.fm.checkBag(id_flight);
+        if (b == null) return Response.status(404).build();
+        else  return Response.status(201).entity(b).build();
     }
 
 }

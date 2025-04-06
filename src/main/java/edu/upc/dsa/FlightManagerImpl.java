@@ -7,6 +7,7 @@ import edu.upc.dsa.models.Bag;
 import edu.upc.dsa.models.Flight;
 import org.apache.log4j.Logger;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -123,6 +124,18 @@ public class FlightManagerImpl implements FlightManager {
     @Override
     public Bag addBag(String id, String id_user, String id_flight) throws FlightNotFoundException{
         return this.addBag(new Bag(id, id_user, id_flight));
+    }
+
+    @Override
+    public List<Bag> checkBag(String id_flight) throws FlightNotFoundException {
+        if (getFlight(id_flight)==null){
+            logger.error("Flight with id= "+ id_flight + " doesn't exist");
+            throw new FlightNotFoundException();
+        }
+        List<Bag> b = getFlight(id_flight).getBags();
+        Collections.reverse(b);
+        logger.info("LIFO :" +b);
+        return b;
     }
 
 

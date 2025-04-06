@@ -6,6 +6,8 @@ import edu.upc.dsa.models.Airplane;
 import edu.upc.dsa.models.Bag;
 import edu.upc.dsa.models.Flight;
 
+import java.util.List;
+
 public interface FlightManager {
 
 
@@ -25,6 +27,7 @@ public interface FlightManager {
     public Bag addBag(Bag b) throws FlightNotFoundException;
     public Bag addBag(String id_user, String id_flight) throws FlightNotFoundException;
     public Bag addBag(String id, String id_user, String id_flight) throws FlightNotFoundException;
+    public List<Bag> checkBag(String id_flight) throws FlightNotFoundException;
 
     public void clear();
     public int sizeAirplane();
