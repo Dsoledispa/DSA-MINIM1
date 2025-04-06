@@ -2,6 +2,7 @@ package edu.upc.dsa.services;
 
 import edu.upc.dsa.FlightManager;
 import edu.upc.dsa.FlightManagerImpl;
+import edu.upc.dsa.exceptions.AirplaneNotFoundException;
 import edu.upc.dsa.models.Flight;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,16 +17,16 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 
-@Api(value = "/flights", description = "Endpoint to Track Service")
+@Api(value = "/flights", description = "Endpoint to flights Service")
 @Path("/flights")
 public class FlightService {
 
     final static Logger logger = Logger.getLogger(FlightService.class); // Log4j
     private FlightManager fm; // fm es una instancia del TracksManager (implementado como Singleton).
 
-    public FlightService() {
+    public FlightService() throws Exception {
         this.fm = FlightManagerImpl.getInstance();
-        logger.info(this.fm);
+
         if (fm.sizeAirplane()==0) {
             this.fm.addAirplane("A1", "747", "Iberia");
             this.fm.addAirplane("A2", "777", "Iberia");
@@ -50,10 +51,10 @@ public class FlightService {
 
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response newTrack(Flight flight) {
+    public Response newFlight(Flight flight) throws AirplaneNotFoundException {
 
         if (flight.getOrigin()==null || flight.getDestination()==null || flight.getArrival_time()==null || flight.getDeparture_time()==null)  return Response.status(500).entity(flight).build();
-        this.fm.addFlight(flight);
+        this.fm.addFlight(flight) ;
         return Response.status(201).entity(flight).build();
     }
 }

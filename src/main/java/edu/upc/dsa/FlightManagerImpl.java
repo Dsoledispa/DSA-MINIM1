@@ -1,5 +1,7 @@
 package edu.upc.dsa;
 
+import edu.upc.dsa.exceptions.AirplaneNotFoundException;
+import edu.upc.dsa.exceptions.FlightNotFoundException;
 import edu.upc.dsa.models.Airplane;
 import edu.upc.dsa.models.Bag;
 import edu.upc.dsa.models.Flight;
@@ -50,8 +52,26 @@ public class FlightManagerImpl implements FlightManager {
     }
 
     @Override
-    public Flight addFlight(Flight f) {
+    public Airplane getAirplane(String id) {
+        logger.info("getAirplane("+ id +")");
+        for (Airplane a: this.airplanes) {
+            if (a.getId().equals(id)) {
+                logger.info("getAirplane("+ id +"): "+a);
+                return a;
+            }
+        }
+
+        logger.warn("not found " + id);
+        return null;
+    }
+
+    @Override
+    public Flight addFlight(Flight f) throws AirplaneNotFoundException {
         logger.info("new Flight " + f);
+        if (getAirplane(f.getId_airplane()) == null){
+            logger.error("Airplane with id= "+f.getId_airplane()+" not found");
+            throw new AirplaneNotFoundException();
+        }
 
         this.flights.add(f);
         logger.info("new Flight added");
@@ -59,29 +79,21 @@ public class FlightManagerImpl implements FlightManager {
     }
 
     @Override
-    public Flight addFlight(String origin, String destination, String arrival_time, String departure_time, String id_airplane) {
+    public Flight addFlight(String origin, String destination, String arrival_time, String departure_time, String id_airplane) throws AirplaneNotFoundException {
         return this.addFlight(null, origin, destination, arrival_time, departure_time, id_airplane);
     }
 
     @Override
-    public Flight addFlight(String id, String origin, String destination, String arrival_time, String departure_time, String id_airplane) {
+    public Flight addFlight(String id, String origin, String destination, String arrival_time, String departure_time, String id_airplane) throws AirplaneNotFoundException{
         return this.addFlight(new Flight(id, origin, destination, arrival_time, departure_time, id_airplane));
     }
+
 
     @Override
     public Bag addBag() {
         return null;
     }
 
-    @Override
-    public void checkinBag() {
-
-    }
-
-    @Override
-    public void provideBag() {
-
-    }
 
     @Override
     public void clear() {

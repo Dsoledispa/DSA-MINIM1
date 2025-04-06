@@ -2,6 +2,9 @@ package edu.upc.dsa.models;
 
 import edu.upc.dsa.util.RandomUtils;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Flight {
     String id;
     String origin;
@@ -11,6 +14,7 @@ public class Flight {
     String departure_time;
 
     String id_airplane;
+    List<Bag> bags;
 
     // Constructor vacio
     public Flight() {
@@ -32,6 +36,7 @@ public class Flight {
         this.setArrival_time(arrival_time);
         this.setDeparture_time(departure_time);
         this.setId_airplane(id_airplane);
+        this.bags = new LinkedList<>();
     }
     // Constructor
 
